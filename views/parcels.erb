@@ -1,0 +1,14 @@
+
+<h3>Your Parcels</h3>
+
+<% if @parcels.any? %>
+  <ul>
+    <% @parcels.each do |parcel| %>
+      <li><a href="/parcels/<%= parcel.id %>"><%= parcel.destination %>: $<%= parcel.cost %></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There are currently no parcels to display.</p>
+<% end %>
+
+<a href="/parcels/new">Add a new parcel</a>

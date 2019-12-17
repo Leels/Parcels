@@ -1,10 +1,10 @@
 class Parcel
-  attr_reader(:size, :weight, :id)
+  attr_reader(:size, :weight, :id, :volume, :destination, :cost)
 
   @@parcels = {}
   @@total_rows = 0
 
-  def initialize(length, width, height, weight, id)
+  def initialize(length, width, height, weight, destination, id)
     @size = {
       "length" => length,
       "width" => width,
@@ -12,6 +12,9 @@ class Parcel
     }
     @weight = weight
     @id = id || @@total_rows += 1
+    @destination = destination
+    @volume = volume()
+    @cost = to_currency(cost())
   end
 
   def self.all()
@@ -19,7 +22,7 @@ class Parcel
   end
 
   def save
-    @@parcels[self.id] = Parcel.new(self.size["length"], self.size["width"],self.size["height"], self.weight, self.id)
+    @@parcels[self.id] = Parcel.new(self.size["length"], self.size["width"],self.size["height"], self.weight, self.destination, self.id)
   end
 
   def ==(parcel_to_compare)
@@ -31,11 +34,15 @@ class Parcel
     @@total_rows = 0
   end
 
-  def update(field, value)
-    if field == 'weight'
-      @weight = value
-    else
-      @size[field] = value
+  def update(length, width, height, weight)
+    updates = [['length',length], ['width',width], ['height',height]]
+    if weight > 0
+      @weight = weight
+    end
+    updates.each do |field|
+      if field[1] > 0
+        @size[field[0]] = field[1]
+      end
     end
   end
 
@@ -47,5 +54,16 @@ class Parcel
     @@parcels[id]
   end
 
+  def volume()
+    @size['length'] * @size['width'] * @size['height']
+  end
+
+  def cost()
+    @volume * 0.25
+  end
+
+  def to_currency(num)
+    (num * 100).to_s.split('').insert(-3,'.').join
+  end
 
 end

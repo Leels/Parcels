@@ -17,7 +17,7 @@ describe('#Parcel') do
 
   it('should allow for the updating the weigh and size of a parcel') do
     parcel = Parcel.new(5,5,5,35,nil)
-    parcel.update('height', 8)
+    parcel.update(nil,nil,8,nil)
     expect(parcel.size['height']).to(eq(8))
   end
 

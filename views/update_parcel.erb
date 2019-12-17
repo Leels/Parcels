@@ -1,0 +1,21 @@
+<h1>Update parcel</h1>
+
+<h4>Your parcel:</h4>
+<form action="/parcels/<%= @parcel.id() %>" method="post">
+  <input name="_method" type="hidden" value="patch">
+  <div class="form-group">
+    <label for="length">Parcel length:</label>
+    <input id="l" name="length" class="form-control" type="text" placeholder="<%= @parcel.size["length"]%>">
+    <label for="width">Parcel width:</label>
+    <input id="l" name="width" class="form-control" type="text" placeholder="<%= @parcel.size["width"]%>">
+    <label for="height">Parcel height:</label>
+    <input id="l" name="height" class="form-control" type="text" placeholder="<%= @parcel.size["height"]%>">
+    <label for="weight">Parcel weight:</label>
+    <input id="l" name="weight" class="form-control" type="text" placeholder="<%= @parcel.weight%>">
+  </div>
+  <button type="submit" class="btn">Go!</button>
+</form>
+<form action="/parcels/<%= @parcel.id() %>" method="post">
+  <input name="_method" type="hidden" value="delete">
+  <button type="submit">Delete parcel</button>
+</form>
